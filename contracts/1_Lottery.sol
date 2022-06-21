@@ -10,6 +10,10 @@ contract Lottery{
     //players is the array of the players who participated
     address payable[] public players;
 
+    //for winners History
+    uint public id;
+    mapping (uint => address payable) private winnersHistory;
+
     constructor(){ 
         //setting the address of deploayer to lotteryOwner
         lotteryOwner = msg.sender;
@@ -60,9 +64,19 @@ contract Lottery{
         //transfer the money to winners account
         players[randomNumber].transfer(address(this).balance);
 
+        //update the history
+        winnersHistory[id] = players[randomNumber];
+        id++;
+
         //after payment reset the players[].
         // players = new address payable[](0);
 
         delete players;  // this means players.length = 0; 
+    }
+
+
+    // for getting winner
+    function showWinner(uint lotteryId) public view returns (address payable){
+        return winnersHistory[lotteryId];
     }
 }
