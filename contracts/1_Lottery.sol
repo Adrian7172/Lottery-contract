@@ -10,7 +10,7 @@ contract Lottery{
     //players is the array of the players who participated
     address payable[] public players;
 
-    constructor(){
+    constructor(){ 
         //setting the address of deploayer to lotteryOwner
         lotteryOwner = msg.sender;
 
